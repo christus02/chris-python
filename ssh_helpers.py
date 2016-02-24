@@ -1,6 +1,11 @@
+#Author: Raghul Christus
+#Date  : 24-Feb-16
+#Purpose : Helper Functions for SSH related functionalities
+
 import pexpect
 
-def ssh_login( ip, user = 'root', pas = 'root', prompt = '>', timeout = 30 ):
+#Function to do a SSH Login
+def ssh_login( ip, user = 'nsroot', pas = 'nsroot', prompt = '>', timeout = 30 ):
      cmd = "ssh " + str(user) + "@" + str(ip) 
      s = pexpect.spawn(cmd)
      s.expect
@@ -14,21 +19,12 @@ def ssh_login( ip, user = 'root', pas = 'root', prompt = '>', timeout = 30 ):
 
      s.expect(prompt)
      return(s);
-    
 
+#Function to execute a command return output    
 def exec_cmd(obj, cmd, prompt = '>', timeout = 30):
      obj.sendline(cmd)
      obj.expect(prompt)
      out = obj.before
      
      return(out);
-
-
-#Main Program
-
-#Provide IP address for Login
-ip_address = ""
-ses = ssh_login(ip_address)
-out = exec_cmd(ses, "show version")
-print out;
 
